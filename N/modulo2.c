@@ -1,48 +1,38 @@
+#include <unistd.h>
+
+
 #include "local.h"
 
-void CrearLista(char c, LISTA **aux, LISTA **inicio){
-	LISTA *nodo;
+extern int validar_opcion(char *opcion, int argc);
+extern void RecorrerLista(LISTA *inicio);
+extern void LiberarMemoria(LISTA *inicio);
+extern void CrearLista(char c, LISTA **aux, LISTA **inicio);
 
-	// 1.- Crear el espacio
-	nodo=malloc(sizeof(LISTA));
-	if(nodo==NULL){
-		printf("No hay memoria\n");
-		exit(1);
-	}
+void opcion(int argc, char *argv[])
+{
+    void (*opciones[])(char *argv[], int argc) = {copiar_normal, copiar_alreves, num_caracteres, num_espacios, imprimir_datos, imprimir_ayuda};
+    int index;
+    if(argc == 2)
+    {
+        system("clear");
+        validar_opcion(argv[1], argc);
+        imprimir_ayuda();
 
-	// 2.- Llenar la información
-	nodo->letras=c;
+    }else if(argc == 3 || argc == 4)
+    {
+        system("clear");
+        index = validar_opcion(argv[1], argc);
+        (*opciones[index])(argv, argc);
 
-	// 3.- Encadenar
-	if(*inicio==NULL){
-		*inicio=nodo;
-	}
-	else{
-		(*aux)->sig=nodo;
-	}
-	*aux=nodo;
-	nodo->sig=NULL;
-}
+    }else if(argc == 5)
+    {
+        system("clear");
+        index = validar_opcion(argv[1], argc);
+        (*opciones[index])(argv, argc);
 
-void RecorrerLista(LISTA *inicio){
-	LISTA *nodo;
-    FILE *fp;
-    fp=fopen("salida.arch", "w");
-	nodo=inicio;
-		while(nodo!=NULL){
-            fprintf(fp,"%c", nodo->letras);
-			nodo=nodo->sig;
-		}
-        fclose(fp);
-}
-
-void LiberarMemoria(LISTA *inicio){
-	LISTA *nodo;
-	nodo=inicio;
-
-	while(nodo!=NULL){
-		inicio=nodo->sig;
-		free(nodo);
-		nodo=inicio;
-	}
+        if(index != 4)
+        {
+            (*opciones[4])(argv, argc);
+        }
+    }
 }
