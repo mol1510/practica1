@@ -120,6 +120,10 @@ void imprimir_datos(char *argv[], int argc){
 }
 
 void imprimir_ayuda(){
-    printf("puto\n");
-
+    printf("-n: Especifica que se quiere copiar el archivo en orden normal.\n");
+    printf("-r: Especifica que se quieren copiar el archivo en orden inverso.\n");
+    printf("-c: Especifica que se quieren contar el número de caracteres del archivo.\n");
+    printf("-e: Especifica que se quiere conocer el número de espacios en el archivo.\n");
+    printf("-v: Especifica que la información del archivo se imprimirá en pantalla.\n");
+    printf("-h: Desplegará en pantalla una ayuda acerca de las opciones que presenta el programa.\n");
 }
