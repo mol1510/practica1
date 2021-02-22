@@ -27,7 +27,6 @@ void opcion(int argc, char *argv[])
     }else if(argc == 3 || argc == 4)
     {
         system("clear");
-        printf("%i", index);
         index = validar_opcion(argv[1], argc);
         (*opciones[index])(argv, argc);
 
