@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <strings.h>
 
 #include "local.h"
 
@@ -16,7 +17,7 @@ int validar_opcion(char *opcion, int argc)
         if(strcmp(opcion, opciones[5]) == 0)
         {
             return 1;
-        }else if(strcmp(opcion, opciones[5]) != 0);
+        }else if(strcmp(opcion, opciones[5]) != 0)
         {
             opcion[1] = tolower(opcion[1]);
             if(strcmp(opcion, opciones[5]) == 0)
@@ -77,16 +78,16 @@ void recorrer_lista(char *argv[], int argc, LISTA *inicio){
 	LISTA *nodo;
     FILE *fp;
     char *file="salida.arch";
-     if(argc > 2){
+    if(argc > 2){
         file = argv[3];
     }
-    fp=fopen(stdrdup(file), "w");
+    fp=fopen(strdup(file), "w");
 	nodo=inicio;
-		while(nodo!=NULL){
-            fprintf(fp,"%c", nodo->letras);
-			nodo=nodo->sig;
-		}
-        fclose(fp);
+    while(nodo!=NULL){
+        fprintf(fp,"%c", nodo->letras);
+        nodo=nodo->sig;
+    }
+    fclose(fp);
 }
 
 void liberar_memoria(LISTA *inicio){
@@ -97,4 +98,5 @@ void liberar_memoria(LISTA *inicio){
 		inicio=nodo->sig;
 		free(nodo);
 		nodo=inicio;
+    }
 }

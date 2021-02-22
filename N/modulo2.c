@@ -27,6 +27,7 @@ void opcion(int argc, char *argv[])
     }else if(argc == 3 || argc == 4)
     {
         system("clear");
+        printf("%i", index);
         index = validar_opcion(argv[1], argc);
         (*opciones[index])(argv, argc);
 
@@ -52,13 +53,13 @@ void copiar_normal(char *argv[], int argc){
         file = argv[3];
     }
     fp=fopen(argv[2], "r");
-    fp1=fopen(stdrdup(file), "w");
+    fp1=fopen(strdup(file), "w");
     if(fp==NULL){
         printf("ERROR NO EXISTE EL ARCHIVO\n");
         exit(1);
     }
-    while(a=getc(fp) !=EOF){
-        fprintf(fp1,"%c", a);
+    while(fscanf(fp, "%c", &a) != EOF){
+        putc(a, fp1);
     }
 
     fclose(fp);
@@ -75,7 +76,7 @@ void copiar_al_reves(char *argv[], int argc){
         printf("ERROR\n");
         exit(1);
     }
-     while(c=getc(fp) !=EOF){
+     while((c=getc(fp)) != EOF){
         crear_lista(c, &inicio);
     }
     recorrer_lista(argv, argc, inicio);
