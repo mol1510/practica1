@@ -51,7 +51,7 @@ int validar_opcion(char *opcion, int argc)
 }
 
 
-void CrearLista(char c, LISTA **aux, LISTA **inicio){
+void crear_lista(char c, LISTA **inicio){
 	LISTA *nodo;
 
 	// 1.- Crear el espacio
@@ -65,21 +65,22 @@ void CrearLista(char c, LISTA **aux, LISTA **inicio){
 	nodo->letras=c;
 
 	// 3.- Encadenar
-	if(*inicio==NULL){
-		*inicio=nodo;
-	}
-	else{
-		(*aux)->sig=nodo;
-	}
-	*aux=nodo;
-	nodo->sig=NULL;
-}
-
-
-void RecorrerLista(LISTA *inicio){
+    if(*inicio == NULL){
+        nodo->sig = NULL;
+    }
+    else{
+        nodo->sig = *inicio;
+    }
+    *inicio = nodo;
+}  
+void recorrer_lista(char *argv[], int argc, LISTA *inicio){
 	LISTA *nodo;
     FILE *fp;
-    fp=fopen("salida.arch", "w");
+    char *file="salida.arch";
+     if(argc > 2){
+        file = argv[3];
+    }
+    fp=fopen(stdrdup(file), "w");
 	nodo=inicio;
 		while(nodo!=NULL){
             fprintf(fp,"%c", nodo->letras);
@@ -88,7 +89,7 @@ void RecorrerLista(LISTA *inicio){
         fclose(fp);
 }
 
-void LiberarMemoria(LISTA *inicio){
+void liberar_memoria(LISTA *inicio){
 	LISTA *nodo;
 	nodo=inicio;
 
